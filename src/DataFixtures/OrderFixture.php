@@ -7,9 +7,17 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Currency;
-
-class OrderFixture extends Fixture
+use App\Entity\OrderStatus;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+class OrderFixture extends Fixture implements DependentFixtureInterface
 {
+    public function getDependencies(): array
+    {
+        return [
+            OrderStatusFixtures::class,
+        ];
+    }
+
     public function load(ObjectManager $manager): void
     {
         $currency = new Currency();
@@ -22,6 +30,7 @@ class OrderFixture extends Fixture
         $order->setName('Test order');
         $order->setCreatedAt(new \DateTimeImmutable());
         $order->setAmount(1500);
+        $order->setStatus($this->getReference(OrderStatusFixtures::STATUS_DELIVERED, OrderStatus::class));
         $order->setCurrency($currency);
 
         $item1 = new OrderItem();
@@ -39,6 +48,26 @@ class OrderFixture extends Fixture
         $manager->persist($item2);
 
         $manager->persist($order);
+        $manager->flush();
+
+        for ($i = 1; $i <= 3; $i++) {
+            $order = new Order();
+            $order->setOrderId('ORD-' . uniqid());
+            $order->setName('Test order ' . $i);
+            $order->setCreatedAt(new \DateTimeImmutable());
+            $order->setAmount(1000 + $i * 500);
+            $order->setStatus($this->getReference(OrderStatusFixtures::STATUS_NEW, OrderStatus::class));
+            $order->setCurrency($currency);
+
+            $item = new OrderItem();
+            $item->setProductName('Product ' . ($i + 2));
+            $item->setUnitPrice(500 * $i);
+            $item->setQuantity($i);
+            $item->setOrder($order);
+            $manager->persist($item);
+
+            $manager->persist($order);
+        }
         $manager->flush();
     }
 }
