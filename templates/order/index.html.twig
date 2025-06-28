@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seznam objednávek{% endblock %}
+
+{% block body %}
+    <h1>Seznam objednávek</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Identifikátor</th>
+                <th>Název</th>
+                <th>Datum</th>
+                <th>Částka</th>
+                <th>Měna</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.orderId }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.createdAt|date('Y-m-d') }}</td>
+                <td>{{ order.amount }}</td>
+                <td>{{ order.currency.code }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">Žádné objednávky.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
