@@ -11,9 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 final class OrderController extends AbstractController
 {
     #[Route('/', name: 'order_list')]
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderService $orderService): Response
     {
-        $orders = $orderRepository->findAllOrders();
+        $orders = $orderService->getOrderList();
 
         return $this->render('order/index.html.twig', [
             'orders' => $orders,

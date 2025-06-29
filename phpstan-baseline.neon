@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$unitPrice of method App\\Entity\\OrderItem\:\:setUnitPrice\(\) expects string, int\<500, 1500\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DataFixtures/OrderFixture.php
+
+		-
+			message: '#^Property App\\Entity\\Currency\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Currency.php
+
+		-
+			message: '#^Property App\\Entity\\Order\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Order.php
+
+		-
+			message: '#^Property App\\Entity\\OrderItem\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/OrderItem.php
+
+		-
+			message: '#^Property App\\Entity\\OrderItem\:\:\$product \(App\\Entity\\Product\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/OrderItem.php
+
+		-
+			message: '#^Property App\\Entity\\OrderStatus\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/OrderStatus.php
+
+		-
+			message: '#^Property App\\Entity\\Product\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: '#^Access to an undefined property App\\Repository\\CurrencyRepository\:\:\$_em\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Repository/CurrencyRepository.php
+
+		-
+			message: '#^Access to an undefined property App\\Repository\\OrderItemRepository\:\:\$_em\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Repository/OrderItemRepository.php
+
+		-
+			message: '#^Access to an undefined property App\\Repository\\OrderRepository\:\:\$_em\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Repository/OrderRepository.php
+
+		-
+			message: '#^Access to an undefined property App\\Repository\\OrderStatusRepository\:\:\$_em\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Repository/OrderStatusRepository.php
+
+		-
+			message: '#^Access to an undefined property App\\Repository\\ProductRepository\:\:\$_em\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Repository/ProductRepository.php

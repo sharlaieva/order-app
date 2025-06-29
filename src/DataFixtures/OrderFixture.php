@@ -39,7 +39,7 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
 
         $item1 = new OrderItem();
         $item1->setProductName('Product 1');
-        $item1->setUnitPrice(1000);
+        $item1->setUnitPrice('1000');
         $item1->setQuantity(1);
         $item1->setProduct($product);
         $item1->setOrder($order);
@@ -47,7 +47,7 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
 
         $item2 = new OrderItem();
         $item2->setProductName('Product 2');
-        $item2->setUnitPrice(500);
+        $item2->setUnitPrice('500');
         $item2->setQuantity(2);
         $item2->setOrder($order);
         $manager->persist($item2);
@@ -66,7 +66,7 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
 
             $item = new OrderItem();
             $item->setProductName('Product ' . ($i + 2));
-            $item->setUnitPrice(500 * $i);
+            $item->setUnitPrice((string) 500 * $i);
             $item->setQuantity($i);
             $item->setOrder($order);
             $manager->persist($item);
@@ -91,7 +91,7 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
 
         $item = new OrderItem();
         $item->setProductName('Paid Product');
-        $item->setUnitPrice(200);
+        $item->setUnitPrice('200');
         $item->setQuantity(1);
         $item->setProduct($product);
         $item->setOrder($order);

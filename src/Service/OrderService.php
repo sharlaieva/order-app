@@ -31,4 +31,15 @@ final class OrderService
 
         return OrderDto::createFromEntity($order);
     }
+
+    /** @return array<OrderDto> */
+    public function getOrderList(): array
+    {
+        $orders = $this->orderRepository->findAllOrders();
+
+        return array_map(
+            static fn($order) => OrderDto::createFromEntity($order),
+            $orders
+        );
+    }
 }

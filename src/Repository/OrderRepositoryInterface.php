@@ -7,7 +7,7 @@ use App\Entity\Order;
 interface OrderRepositoryInterface extends RepositoryInterface
 {
     /**
-     * @return OrderDto[]
+     * @return Order[]
      */
     public function findAllOrders(): array;
 

@@ -23,6 +23,7 @@ class OrderItemDto implements \JsonSerializable
         return $dto;
     }
 
+    /** @return array<string, mixed> */
     public function jsonSerialize(): array
     {
         return [

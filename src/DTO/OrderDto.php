@@ -32,6 +32,7 @@ final class OrderDto implements \JsonSerializable
         return $dto;
     }
 
+    /** @return array<string, mixed> */
     public function jsonSerialize(): array
     {
         return [

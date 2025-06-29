@@ -33,8 +33,12 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private ?Currency $currency = null;
 
-     #[ORM\OneToMany(mappedBy: "order", targetEntity: OrderItem::class, cascade: ["persist", "remove"])]
+    /**
+     * @var Collection<int, OrderItem>
+     */
+    #[ORM\OneToMany(mappedBy: "order", targetEntity: OrderItem::class, cascade: ["persist", "remove"])]
     private Collection $items;
+
 
     #[ORM\ManyToOne(targetEntity: OrderStatus::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -124,8 +128,8 @@ class Order
         return $this;
     }
 
-     /**
-     * @return Collection|OrderItem[]
+    /**
+     * @return Collection<int, OrderItem>
      */
     public function getItems(): Collection
     {
