@@ -26,7 +26,7 @@ final class OrderController extends AbstractController
         $order = $orderService->getOrderDetailDtoById($orderId);
 
         if (!$order) {
-            $this->addFlash('error', 'Objednávka nenalezena');
+            $this->addFlash('danger', 'Objednávka nenalezena');
 
             return $this->redirectToRoute('order_list');
         }

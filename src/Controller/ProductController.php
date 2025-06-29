@@ -32,7 +32,8 @@ class ProductController extends AbstractController
         $product = $this->productRepository->find($id);
 
         if (!$product) {
-            throw $this->createNotFoundException('Produkt nenalezen.');
+            $this->addFlash('danger', 'Produkt nenalezen.');
+            return $this->redirectToRoute('product_list');
         }
 
         return $this->render('product/detail.html.twig', [
