@@ -3,30 +3,52 @@
 {% block title %}Seznam objednávek{% endblock %}
 
 {% block body %}
-    <h1>Seznam objednávek</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Seznam objednávek</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Identifikátor</th>
-                <th>Název</th>
-                <th>Datum</th>
-                <th>Částka</th>
-                <th>Měna</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            <tr>
-                <td>{{ order.orderId }}</td>
-                <td>{{ order.name }}</td>
-                <td>{{ order.createdAt|date('Y-m-d') }}</td>
-                <td>{{ order.amount }}</td>
-                <td>{{ order.currency.code }}</td>
-            </tr>
-        {% else %}
-            <tr><td colspan="5">Žádné objednávky.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Identifikátor</th>
+                    <th scope="col">Název</th>
+                    <th scope="col">Datum</th>
+                    <th scope="col">Částka</th>
+                    <th scope="col">Měna</th>
+                    <th scope="col">Stav</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        <a href="{{ path('order_detail', { orderId: order.orderId }) }}">
+                            {{ order.orderId }}
+                        </a>
+                    </td>
+
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.createdAt|date('Y-m-d') }}</td>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.currency.code }}</td>
+                    <td>
+                        {% set badgeClass = {
+                            'Nová': 'primary',
+                            'Zaplacena': 'success',
+                            'Zpracovává se': 'info',
+                            'Odeslána': 'warning',
+                            'Doručena': 'secondary',
+                            'Zrušena': 'danger'
+                        }[order.status.name] ?? 'dark' %}
+
+                        <span class="badge bg-{{ badgeClass }}">{{ order.status.name }}</span>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">Žádné objednávky.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

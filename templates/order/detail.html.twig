@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail objednávky #{{ order.orderId }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Detail objednávky #{{ order.orderId }}</h1>
+
+    <table class="table table-bordered mt-3">
+        <tbody>
+            <tr>
+                <th>Název</th>
+                <td>{{ order.name }}</td>
+            </tr>
+            <tr>
+                <th>Datum</th>
+                <td>{{ order.createdAt|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Částka</th>
+                <td>{{ order.amount }} {{ order.currency.code }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>
+                    {% set statusClass = {
+                        'Nová': 'badge bg-primary',
+                        'Zpracovává se': 'badge bg-warning text-dark',
+                        'Zaplacena': 'badge bg-success',
+                        'Odeslána': 'badge bg-info text-dark',
+                        'Doručena': 'badge bg-secondary',
+                        'Zrušena': 'badge bg-danger'
+                    }[order.status.name]|default('badge bg-light text-dark') %}
+                    <span class="{{ statusClass }}">{{ order.status.name }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Položky objednávky</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Cena</th>
+                <th>Množství</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items %}
+                <tr>
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted">Žádné položky.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+     <a href="{{ path('order_list') }}" class="btn btn-secondary">Zpět na seznam objednávek</a>
+</div>
+{% endblock %}

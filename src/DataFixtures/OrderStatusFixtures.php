@@ -10,10 +10,10 @@ class OrderStatusFixtures extends Fixture
 {
     public const STATUS_NEW = 'Nová';
     public const STATUS_PROCESSING = 'Zpracovává se';
-    public const STATUS_PAID = 'Zaplaceno';
-    public const STATUS_SHIPPED = 'Odesláno';
-    public const STATUS_DELIVERED = 'Doručeno';
-    public const STATUS_CANCELLED = 'Zrušeno';
+    public const STATUS_PAID = 'Zaplacena';
+    public const STATUS_SHIPPED = 'Odeslána';
+    public const STATUS_DELIVERED = 'Doručena';
+    public const STATUS_CANCELLED = 'Zrušena';
 
     public function load(ObjectManager $manager): void
     {

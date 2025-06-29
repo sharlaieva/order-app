@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-class OrderItemDto
+class OrderItemDto implements \JsonSerializable
 {
     public ?int $id = null;
     public ?string $productName = null;
@@ -19,5 +19,16 @@ class OrderItemDto
         $dto->quantity = $orderItem->getQuantity();
         $dto->currencyCode = $orderItem->getOrder()->getCurrency()->getCode();
         return $dto;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->productName,
+            'price' => $this->price,
+            'currencyCode' => $this->currencyCode,
+            'quantity' => $this->quantity,
+        ];
     }
 }

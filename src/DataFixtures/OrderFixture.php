@@ -68,6 +68,29 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
 
             $manager->persist($order);
         }
+
+        $currency2 = new Currency();
+        $currency2->setCode('EUR');
+        $currency2->setName('Euro');
+        $manager->persist($currency2);
+
+        $order = new Order();
+        $order->setOrderId('ORD-' . uniqid());
+        $order->setName('Paid order');
+        $order->setCreatedAt(new \DateTimeImmutable());
+        $order->setAmount(130);
+        $order->setStatus($this->getReference(OrderStatusFixtures::STATUS_PAID, OrderStatus::class));
+        $order->setCurrency($currency2);
+
+        $item = new OrderItem();
+        $item->setProductName('Paid Product');
+        $item->setUnitPrice(200);
+        $item->setQuantity(1);
+        $item->setOrder($order);
+        $manager->persist($item);
+
+        $manager->persist($order);
+
         $manager->flush();
     }
 }
