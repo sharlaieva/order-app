@@ -10,7 +10,7 @@ use App\Entity\Currency;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
-final class Order
+class Order
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

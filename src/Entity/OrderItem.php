@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
-final class OrderItem
+class OrderItem
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,6 +26,10 @@ final class OrderItem
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: "items")]
     #[ORM\JoinColumn(nullable: false)]
     private Order $order;
+
+    #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Product $product;
 
     public function getId(): ?int
     {
@@ -77,6 +81,17 @@ final class OrderItem
     public function setOrder(?Order $order): self
     {
         $this->order = $order;
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(Product $product): self
+    {
+        $this->product = $product;
         return $this;
     }
 }

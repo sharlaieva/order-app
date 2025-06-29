@@ -8,6 +8,7 @@ use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Currency;
 use App\Entity\OrderStatus;
+use App\Entity\Product;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class OrderFixture extends Fixture implements DependentFixtureInterface
 {
@@ -15,6 +16,7 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             OrderStatusFixtures::class,
+            ProductFixtures::class,
         ];
     }
 
@@ -33,10 +35,13 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
         $order->setStatus($this->getReference(OrderStatusFixtures::STATUS_DELIVERED, OrderStatus::class));
         $order->setCurrency($currency);
 
+        $product = $this->getReference('product_0', Product::class);
+
         $item1 = new OrderItem();
         $item1->setProductName('Product 1');
         $item1->setUnitPrice(1000);
         $item1->setQuantity(1);
+        $item1->setProduct($product);
         $item1->setOrder($order);
         $manager->persist($item1);
 
@@ -82,10 +87,13 @@ class OrderFixture extends Fixture implements DependentFixtureInterface
         $order->setStatus($this->getReference(OrderStatusFixtures::STATUS_PAID, OrderStatus::class));
         $order->setCurrency($currency2);
 
+        $product = $this->getReference('product_0', Product::class);
+
         $item = new OrderItem();
         $item->setProductName('Paid Product');
         $item->setUnitPrice(200);
         $item->setQuantity(1);
+        $item->setProduct($product);
         $item->setOrder($order);
         $manager->persist($item);
 

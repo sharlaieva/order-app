@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produkty{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Seznam produktů</h1>
+
+    {% if products is not empty %}
+        <div class="list-group">
+            {% for product in products %}
+                <a href="{{ path('product_detail', {'id': product.id}) }}" class="list-group-item list-group-item-action">
+                    {{ product.name }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Žádné produkty k dispozici.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

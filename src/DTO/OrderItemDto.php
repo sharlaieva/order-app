@@ -9,6 +9,7 @@ class OrderItemDto implements \JsonSerializable
     public ?string $price = null;
     public ?int $quantity = null;
     public ?string $currencyCode = null;
+    public ?ProductDto $product = null;
 
     public static function createFromEntity(\App\Entity\OrderItem $orderItem): self
     {
@@ -18,6 +19,7 @@ class OrderItemDto implements \JsonSerializable
         $dto->price = $orderItem->getUnitPrice();
         $dto->quantity = $orderItem->getQuantity();
         $dto->currencyCode = $orderItem->getOrder()->getCurrency()->getCode();
+        $dto->product = $orderItem->getProduct() ? ProductDto::createFromEntity($orderItem->getProduct()) : null;
         return $dto;
     }
 
@@ -29,6 +31,7 @@ class OrderItemDto implements \JsonSerializable
             'price' => $this->price,
             'currencyCode' => $this->currencyCode,
             'quantity' => $this->quantity,
+            'product' => $this->product ? $this->product->jsonSerialize() : null,
         ];
     }
 }

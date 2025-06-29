@@ -49,7 +49,14 @@
         <tbody>
             {% for item in order.items %}
                 <tr>
-                    <td>{{ item.productName }}</td>
+                    <td>
+                        {% if item.product is defined and item.product %}
+                            <a href="{{ path('product_detail', {id: item.product.id}) }}">{{ item.productName }}</a>
+                        {% else %}
+                            <span title="Produkt již není dostupný">{{ item.productName }}</span>
+                        {% endif %}
+                    </td>
+
                     <td>{{ item.price }}</td>
                     <td>{{ item.quantity }}</td>
                 </tr>
@@ -61,6 +68,6 @@
         </tbody>
     </table>
 
-     <a href="{{ path('order_list') }}" class="btn btn-secondary">Zpět na seznam objednávek</a>
+    <a href="{{ path('order_list') }}" class="btn btn-secondary">Zpět na seznam objednávek</a>
 </div>
 {% endblock %}
