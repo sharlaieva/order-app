@@ -9,35 +9,32 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Currency>
  */
-class CurrencyRepository extends ServiceEntityRepository
+class CurrencyRepository extends ServiceEntityRepository implements CurrencyRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Currency::class);
     }
 
-    //    /**
-    //     * @return Currency[] Returns an array of Currency objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAll(): array
+    {
+        return parent::findAll();
+    }
 
-    //    public function findOneBySomeField($value): ?Currency
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function save(object $entity): void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+    }
+
+    public function delete(object $entity): void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    public function findByCode(string $code): ?Currency
+    {
+        return $this->findOneBy(['code' => $code]);
+    }
 }

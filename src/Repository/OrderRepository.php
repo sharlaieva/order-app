@@ -9,35 +9,40 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Order>
  */
-class OrderRepository extends ServiceEntityRepository
+class OrderRepository extends ServiceEntityRepository implements OrderRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Order::class);
     }
 
-    //    /**
-    //     * @return Order[] Returns an array of Order objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+   public function findAll(): array
+    {
+        return parent::findAll();
+    }
 
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function save(object $entity): void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+    }
+
+    public function delete(object $entity): void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    public function findOrderById(string $orderId): ?Order
+    {
+        return $this->findOneBy(['orderId' => $orderId]);
+    }
+
+    /**
+     * @retun array<Order>
+     */
+    public function findAllOrders(): array
+    {
+        return $this->findAll();
+    }
 }

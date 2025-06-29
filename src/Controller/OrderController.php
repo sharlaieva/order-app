@@ -7,14 +7,13 @@ use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 final class OrderController extends AbstractController
 {
     #[Route('/', name: 'order_list')]
     public function index(OrderRepository $orderRepository): Response
     {
-        $orders = $orderRepository->findAll();
+        $orders = $orderRepository->findAllOrders();
 
         return $this->render('order/index.html.twig', [
             'orders' => $orders,
@@ -22,7 +21,7 @@ final class OrderController extends AbstractController
     }
 
     #[Route('/orders/{orderId}', name: 'order_detail', methods: ['GET'])]
-    public function detail(string $orderId, OrderService $orderService, Environment $twig): Response
+    public function detail(string $orderId, OrderService $orderService): Response
     {
         $order = $orderService->getOrderDetailDtoById($orderId);
 

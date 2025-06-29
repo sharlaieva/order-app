@@ -18,12 +18,12 @@ final class OrderService
     /**
      * Get order by ID.
      *
-     * @param int $orderId
+     * @param string $orderId
      * @return OrderDto|null
      */
     public function getOrderDetailDtoById(string $orderId): ?OrderDto
     {
-        $order = $this->orderRepository->findOneBy(['orderId' => $orderId]);
+        $order = $this->orderRepository->findOrderById($orderId);
 
         if (null === $order) {
             return null;
