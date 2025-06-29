@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
-
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+WORKDIR /var/www/html
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]

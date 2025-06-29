@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   database:
     image: mysql:8.0
@@ -20,7 +22,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: docker/php/Dockerfile
     container_name: orders-app-php
     volumes:
       - .:/var/www/html
