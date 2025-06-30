@@ -57,3 +57,5 @@ Aplikaci lze spustit jedním příkazem:
 ```bash
 docker-compose up --build -d
 ```
+
+Webová část bude následně dostupná na http://localhost:8000, je však možné, že bude třeba chvíli počkat na dokončení instalace všech závislostí.
